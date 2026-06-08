@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
+</head>
+<body>
+<div class="container dashboard-container">
+    <h1>Transaction Statements</h1>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Transaction Details</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row["id"] }}</td>
+                    <td>{{ row["type"] }}</td>
+                    <td><strong>${{ "%.2f"|format(row["amount"]) }}</strong></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" style="text-align: center;">No transaction history found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="nav-links" style="margin-top:2rem;"><a href="/dashboard">↩ Back to Dashboard</a></div>
+</div>
+</body>
+</html>
+

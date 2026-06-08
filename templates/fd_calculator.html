@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📈Fixed deposit Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+
+
+<div class="container">
+    <h2>📈Fixed Deposit Calculator</h2>
+
+    <form method="POST">
+
+        <div class="form-group">
+            <label>Principal Amount</label>
+            <input type="number" name="principal" required>
+        </div>
+
+        <div class="form-group">
+            <label>Interest Rate (%)</label>
+            <input type="number" step="0.01" name="rate" required>
+        </div>
+
+        <div class="form-group">
+            <label>Years</label>
+            <input type="number" name="years" required>
+        </div>
+
+        <button type="submit">
+            Calculate FD
+        </button>
+
+    </form>
+
+    {% if maturity %}
+    <div class="balance-card">
+        <h3>Maturity Amount</h3>
+        <h2>₹{{ "%.2f"|format(maturity) }}</h2>
+    </div>
+    {% endif %}
+
+    <a href="/dashboard">← Back to Dashboard</a>
+
+</div>
+
+{% if maturity %}
+<h3>Maturity Amount: ₹{{ "%.2f"|format(maturity) }}</h3>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
+</head>
+<body>
+<div class="container dashboard-container image">
+    <div class="topbar">
+
+    <div>
+        <h1>Welcome, {{ user['name'] }}!</h1>
+        <p>Account Number: {{ user['account'] }}</p>
+    </div>
+
+    <div class="icons">
+
+        <button onclick="toggleMode()" class="icon-btn">
+            🌙
+        </button>
+
+        <button onclick="toggleMenu()" class="icon-btn">
+            ☰
+        </button>
+
+    </div>
+
+</div>
+    <div id="menu" class="side-menu">
+
+
+    <a href="/transfer">💸 Transfer Money</a>
+
+    <a href="/transactions">📜 History Log</a>
+
+    <a href="/change_password">🔒 Change Password</a>
+
+    <a href="/loan_checker">🏦 Loan Eligibility Checker</a>
+
+    <a href="/fd_calculator">📈 FD Calculator</a>
+
+    <a href="/expense_report">📊 Expense Report</a>
+
+    <a href="/admin">🛡️ Admin Panel</a>
+
+    <a href="/logout">🚪 Log Out</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for cat, msg in messages %}<div class="flash {{cat}}">{{msg}}</div>{% endfor %}{% endif %}
+    {% endwith %}
+
+    <div class="balance-card">
+        <div>Available Balance</div>
+        <div class="balance-amount">${{ "%.2f"|format(user["balance"]) }}</div>
+    </div>
+
+    <div class="action-grid">
+        <form action="/deposit" method="post">
+            <h3>Deposit</h3>
+            <input type="number" name="amount" min="500" step="500" placeholder="Amount" required><br><br>
+            <button type="submit">Deposit Funds</button>
+        </form>
+
+        <form action="/withdraw" method="post">
+            <h3>Withdraw</h3>
+            <input type="number" name="amount" min="500" step="500" placeholder="Amount" required><br><br>
+            <button type="submit">Withdraw Funds</button>
+        </form>
+    </div>
+
+    <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ddd;">
+
+    
+    
+
+    <a href="/delete" onclick="return confirm('Are you completely sure you want to close this account? This cannot be undone.');">
+        <button class="btn-danger">Delete This Account🗑️</button>
+    </a>
+</div>
+<script>
+function toggleMode() {
+    document.body.classList.toggle("dark");
+}
+</script>
+<script>
+function toggleMenu() {
+
+    var menu = document.getElementById("menu");
+
+    if(menu.style.display === "block"){
+        menu.style.display = "none";
+    }
+    else{
+        menu.style.display = "block";
+    }
+}
+</script>
+<script>
+
+let menuOpen = false;
+
+function toggleMenu(){
+
+    let menu = document.getElementById("menu");
+
+    if(menuOpen){
+        menu.style.right = "-300px";
+        menuOpen = false;
+    }
+    else{
+        menu.style.right = "0";
+        menuOpen = true;
+    }
+}
+
+</script>
+
+</body>
+</html>

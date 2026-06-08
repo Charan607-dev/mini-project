@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>💰Loan Eligibility Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+
+    <h1>💰Loan Eligibility Checker</h1>
+
+    <form method="POST">
+
+        <div class="form-group">
+            <label>Monthly Income</label>
+            <input type="number" name="income" required>
+        </div>
+
+        <div class="form-group">
+            <label>Existing Loan Amount</label>
+            <input type="number" name="existing_loan" required>
+        </div>
+
+        <button type="submit">
+            Check Eligibility
+        </button>
+        <div class="nav-links">
+        <a href="/dashboard">← Back to Dashboard</a>
+    </div>
+
+    </form>
+
+    {% if result %}
+    <div class="balance-card">
+        <h3>{{ result }}</h3>
+    </div>
+    {% endif %}
+
+</div>
+
+{% if result %}
+<h3>{{ result }}</h3>
+{% endif %}
+
+ 
+
+</body>
+</html>
